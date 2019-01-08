@@ -1,0 +1,83 @@
+h1,h2,h3,h4,h5,h6 {color: #ffffff;}
+body{
+	color: rgb(220, 223, 242);
+	line-height: 1.5;
+	letter-spacing: 0.2px;
+	background-color: #000000;
+	font-family: "Poppins", sans-serif, Calibri, Arial;
+	font-size: 14pt;
+}
+
+.rrc-margin-bottom{ margin-bottom: 32px !important;}
+.rrc-margin-bottom-16{ margin-bottom: 16px !important;}
+.rrc-grid-color-main{ background-color: #1c46f2!important;/*#1c46f2;*/}
+
+*[class*='rrc-grid-image-']{ 
+	background-position: center !important;
+	background-repeat: no-repeat !important;
+	background-size: cover !important;
+}
+
+.rrc-grid-image-1{ background-image: url(../images/grid.1.jpeg) !important; height: 100%}
+.rrc-grid-image-2{ background-image: url(../images/grid.2.jpeg) !important;}
+.rrc-grid-image-3{ background-image: url(../images/grid.3.jpeg) !important;}
+
+.rrc-grid-title{
+	font-size: 55px;
+	color: #ffb400;
+	text-transform: uppercase;
+	font-weight: 900;
+}
+
+.rrc-grid-subtitle{
+	color: #ffb400;
+	text-transform: uppercase;
+}
+
+*[class*='fa-star']{ 
+	color: #ffb400
+}
+
+.rrc-padding{
+	padding: 50px !important;
+}
+
+.rrc-grid-hidden{
+	display: none;
+}
+
+@media (min-width:601px){
+	.rrc-grid-hidden{
+		display: block;
+	}
+}
+
+.rrc-linkedin{background-color: #0077b5; color: white;}
+.rrc-github{background-color: #333; color: white;}
+.rrc-link{background-color: #5ba4e5; color: white;}
+.rrc-experts-exchange{background-color: #222222; color: white;}
+.rrc-dark-1{background-color: #000000;}
+.rrc-dark-2{background-color: #212121;}
+.rrc-dark-3{background-color: #424242;}
+.rrc-dark-text-1{color: #000000;}
+.rrc-dark-text-2{color: #212121;}
+.rrc-dark-text-3{color: #424242;}
+
+/* w3.css */
+
+.w3-row:nth-child(odd){background-color:#212121;}
+.w3-row:nth-child(even){background-color:#000000;}
+@media (min-width:601px){
+	.w3-half{
+		height: 700px!important;
+	}
+}
+.w3-half{
+	height: unset;
+	overflow: hidden;
+}
+
+/* hover-box.css */
+
+.hvrbox .hvrbox-layer_top {background-color: #ffb400;}
+.hvrbox .hvrbox-text {color: #000000;}
