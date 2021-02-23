@@ -71,11 +71,11 @@ body{
 .w3-row:nth-child(odd){background-color:#212121;}
 .w3-row:nth-child(even){background-color:#000000;}
 @media (min-width:993px){
-	.w3-half{
+	.w3-col{
 		height: 700px!important;
 	}
 }
-.w3-half{
+.w3-col{
 	height: unset;
 	overflow: hidden;
 }
