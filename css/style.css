@@ -10,7 +10,7 @@ body{
 
 .rrc-margin-bottom{ margin-bottom: 32px !important;}
 .rrc-margin-bottom-16{ margin-bottom: 16px !important;}
-.rrc-grid-color-main{ background-color: #1c46f2!important;/*#1c46f2;*/}
+.rrc-blue{ background-color: #1c46f2!important;color:white;/*#1c46f2;*/}
 
 *[class*='rrc-grid-image-']{ 
 	background-position: center !important;
@@ -39,7 +39,7 @@ body{
 }
 
 .rrc-padding{
-	padding: 50px !important;
+	padding: 50px;
 }
 
 .rrc-grid-hidden{
@@ -48,37 +48,41 @@ body{
 
 @media (min-width:993px){
 	.rrc-grid-title{
-		font-size: 55px;
+		font-size: 55px!important;
 	}
 	.rrc-grid-hidden{
-		display: block;
+		display: block!important;
 	}
+	.rrc-section{
+		height: 800px!important;
+	}
+}
+
+.rrc-section{
+	height: unset;
 }
 
 .rrc-linkedin{background-color: #0077b5; color: white;}
 .rrc-github{background-color: #333; color: white;}
 .rrc-link{background-color: #5ba4e5; color: white;}
-.rrc-experts-exchange{background-color: #222222; color: white;}
+.rrc-experts-exchange{background-color: #333333; color: white;}
+.rrc-facebook{background-color: #3b5998; color: white;}
+.rrc-instagram{background-color: #c13584; color: white;}
+.rrc-twitter{background-color: #1da1f2; color: white;}
+
+
 .rrc-dark-1{background-color: #000000;}
 .rrc-dark-2{background-color: #212121;}
 .rrc-dark-3{background-color: #424242;}
 .rrc-dark-text-1{color: #000000;}
 .rrc-dark-text-2{color: #212121;}
 .rrc-dark-text-3{color: #424242;}
+.rrc-dark-gray{background-color:#212121;color:white;}
 
 /* w3.css */
 
-.w3-row:nth-child(odd){background-color:#212121;}
-.w3-row:nth-child(even){background-color:#000000;}
-@media (min-width:993px){
-	.w3-col{
-		height: 700px!important;
-	}
-}
-.w3-col{
-	height: unset;
-	overflow: hidden;
-}
+/* .w3-row:nth-child(odd){background-color:#212121;} */
+/* .w3-row:nth-child(even){background-color:#000000;} */
 
 /* hover-box.css */
 
