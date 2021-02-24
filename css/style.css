@@ -23,7 +23,7 @@ body{
 .rrc-grid-image-3{ background-image: url(../images/grid.3.jpeg) !important;}
 
 .rrc-grid-title{
-	font-size: 35px;
+	font-size: 50px;
 	color: #ffb400;
 	text-transform: uppercase;
 	font-weight: 900;
@@ -47,9 +47,6 @@ body{
 }
 
 @media (min-width:993px){
-	.rrc-grid-title{
-		font-size: 55px!important;
-	}
 	.rrc-grid-hidden{
 		display: block!important;
 	}
@@ -83,6 +80,10 @@ body{
 
 /* .w3-row:nth-child(odd){background-color:#212121;} */
 /* .w3-row:nth-child(even){background-color:#000000;} */
+
+.w3-content{
+	max-width:1600px;
+}
 
 /* hover-box.css */
 
