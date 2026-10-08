@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <!-- Fondo principal oscuro -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d13"/>
+      <stop offset="100%" stop-color="#0d1117"/>
+    </linearGradient>
+
+    <!-- Resplandor superior sutil -->
+    <radialGradient id="glowTop" cx="50%" cy="15%" r="65%">
+      <stop offset="0%" stop-color="#4f46e5" stop-opacity="0.18"/>
+      <stop offset="50%" stop-color="#38bdf8" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Gradiente oficial del logo: from-indigo-600 (#4f46e5) to-indigo-800 (#3730a3) -->
+    <linearGradient id="logoIndigoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5"/>
+      <stop offset="100%" stop-color="#3730a3"/>
+    </linearGradient>
+
+    <!-- Gradiente para el titular principal -->
+    <linearGradient id="textGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="20%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#94a3b8"/>
+    </linearGradient>
+
+    <!-- Rejilla tenue de fondo -->
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#30363d" stroke-width="0.6" stroke-opacity="0.25"/>
+    </pattern>
+  </defs>
+
+  <!-- Fondo base con rejilla y resplandor -->
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#glowTop)"/>
+
+  <!-- Marco perimetral sutil -->
+  <rect x="2" y="2" width="1196" height="626" rx="16" fill="none" stroke="#30363d" stroke-width="1.5"/>
+
+  <!-- Contenido estructurado -->
+  <g transform="translate(100, 105)">
+    
+    <!-- 1. Cabecera / Identidad: Logo plano, nítido y con borde sutil -->
+    <g transform="translate(0, 0)">
+      <!-- Caja icono: sin sombra, con trazo tenue índigo para delimitar contorno -->
+      <rect width="64" height="64" rx="16" fill="url(#logoIndigoGrad)" stroke="#6366f1" stroke-width="1" stroke-opacity="0.25"/>
+      <text x="32" y="43" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Inter', sans-serif" font-weight="700" font-size="30" text-anchor="middle">O</text>
+      
+      <!-- Texto de marca: Orbit (Bold #ffffff) Enterprise (Regular #818cf8) -->
+      <text x="86" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Inter', sans-serif" font-size="28" letter-spacing="-0.5">
+        <tspan fill="#ffffff" font-weight="700">Orbit </tspan>
+        <tspan fill="#818cf8" font-weight="400">Enterprise</tspan>
+      </text>
+    </g>
+
+    <!-- 2. Titular Principal -->
+    <text x="0" y="160" fill="url(#textGrad)" font-family="-apple-system, BlinkMacSystemFont, 'Inter', sans-serif" font-weight="800" font-size="52" letter-spacing="-1.5">
+      Linux Fleet Patch Management
+    </text>
+    <text x="0" y="222" fill="url(#textGrad)" font-family="-apple-system, BlinkMacSystemFont, 'Inter', sans-serif" font-weight="800" font-size="52" letter-spacing="-1.5">
+      &amp; Orchestration Server
+    </text>
+
+    <!-- 3. Subtítulo descriptivo -->
+    <text x="0" y="285" fill="#8b949e" font-family="-apple-system, BlinkMacSystemFont, 'Inter', sans-serif" font-weight="400" font-size="22">
+      Automated errata auditing, reboot tracking, and secure outbound-only agents.
+    </text>
+
+    <!-- 4. Badges de características del sistema -->
+    <g transform="translate(0, 345)">
+      <!-- Badge 1: Backend Stack -->
+      <rect x="0" y="0" width="180" height="40" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+      <text x="90" y="25" fill="#818cf8" font-family="-apple-system, BlinkMacSystemFont, 'Inter', sans-serif" font-weight="600" font-size="14" text-anchor="middle">FastAPI + Systemd</text>
+
+      <!-- Badge 2: Seguridad Ingress -->
+      <rect x="198" y="0" width="165" height="40" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+      <text x="280.5" y="25" fill="#10b981" font-family="-apple-system, BlinkMacSystemFont, 'Inter', sans-serif" font-weight="600" font-size="14" text-anchor="middle">0 Inbound Ports</text>
+
+      <!-- Badge 3: Compatibilidad Multi-Distro -->
+      <rect x="381" y="0" width="160" height="40" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+      <text x="461" y="25" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Inter', sans-serif" font-weight="600" font-size="14" text-anchor="middle">RPM &amp; DEB Fleet</text>
+
+      <!-- Badge 4: Estándar de sistema de archivos -->
+      <rect x="559" y="0" width="165" height="40" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+      <text x="641.5" y="25" fill="#f59e0b" font-family="-apple-system, BlinkMacSystemFont, 'Inter', sans-serif" font-weight="600" font-size="14" text-anchor="middle">100% Linux FHS</text>
+    </g>
+
+  </g>
+</svg>
