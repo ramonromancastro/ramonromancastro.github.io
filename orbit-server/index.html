@@ -4,7 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  
+
+  <!-- Prevención de parpadeo de tema (FOUC) -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('orbit-theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+    })();
+  </script>
+
   <!-- SEO CORE -->
   <title>Orbit Enterprise | Linux Fleet Patch Management & Orchestration</title>
   <meta name="description" content="Centralized, secure, and lightweight Linux fleet orchestrator for security patch auditing, telemetry, and automated task execution across RPM and DEB systems.">
@@ -12,7 +22,7 @@
   <meta name="author" content="Orbit Enterprise Project">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://ramonromancastro.github.io/orbit-server/">
-  <meta name="theme-color" content="#0d1117">
+  <meta name="theme-color" content="#0d1117" id="theme-color-meta">
 
   <!-- OPEN GRAPH / FACEBOOK / LINKEDIN / DISCORD -->
   <meta property="og:type" content="website">
@@ -58,16 +68,20 @@
     }
   }
   </script>
-  
+
   <style>
+    /* Variables base: Modo oscuro por defecto */
     :root {
       --bg-darker: #090d13;
       --bg-dark: #0d1117;
       --bg-card: #161b22;
       --bg-card-hover: #1c2129;
+      --btn-primary: #0d1117;
       --border-color: #30363d;
       --border-hover: #484f58;
-      
+      --badge-color: oklch(51.1% 0.262 276.966);
+      --subtitle-color: oklch(67.3% 0.182 276.935);
+
       --accent-blue: #38bdf8;
       --accent-blue-glow: rgba(56, 189, 248, 0.15);
       --accent-green: #10b981;
@@ -78,24 +92,114 @@
       --text-muted: #8b949e;
       --text-dim: #6e7681;
       
+      --glow-gradient: radial-gradient(circle at 50% 20%, rgba(56, 189, 248, 0.12) 0%, rgba(168, 85, 247, 0.05) 50%, transparent 80%);
+      --header-bg: rgba(13, 17, 23, 0.85);
+      --hero-heading-gradient: linear-gradient(180deg, #ffffff 40%, #94a3b8 100%);
+      --cta-gradient: linear-gradient(180deg, var(--bg-card) 0%, rgba(22, 27, 34, 0.4) 100%);
+      --terminal-code-bg: #000000;
+      --terminal-code-text: #94a3b8;
+      
       --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-mono: 'Fira Code', monospace;
     }
 
-    /* Inter Font (Sans-serif) */
+    /* Adaptación automática según preferencia del sistema */
+    @media (prefers-color-scheme: light) {
+      :root:not([data-theme="dark"]) {
+        --bg-darker: #f0f3f6;
+        --bg-dark: #f8fafc;
+        --bg-card: #ffffff;
+        --bg-card-hover: #f1f5f9;
+        --btn-primary: #f8fafc;
+        --border-color: #e2e8f0;
+        --border-hover: #cbd5e1;
+
+        --accent-blue: #0284c7;
+        --accent-blue-glow: rgba(2, 132, 199, 0.15);
+        --accent-green: #059669;
+        --accent-purple: #9333ea;
+        --accent-amber: #d97706;
+
+        --text-main: #0f172a;
+        --text-muted: #475569;
+        --text-dim: #94a3b8;
+
+        --glow-gradient: radial-gradient(circle at 50% 20%, rgba(2, 132, 199, 0.08) 0%, rgba(147, 51, 234, 0.04) 50%, transparent 80%);
+        --header-bg: rgba(248, 250, 252, 0.85);
+        --hero-heading-gradient: linear-gradient(180deg, #0f172a 40%, #334155 100%);
+        --cta-gradient: linear-gradient(180deg, #ffffff 0%, rgba(241, 245, 249, 0.6) 100%);
+        --terminal-code-bg: #0f172a;
+        --terminal-code-text: #cbd5e1;
+      }
+    }
+
+    /* Override explícito mediante botón manual */
+    html[data-theme="light"] {
+      --bg-darker: #f0f3f6;
+      --bg-dark: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f1f5f9;
+      --border-color: #e2e8f0;
+      --border-hover: #cbd5e1;
+
+      --accent-blue: #0284c7;
+      --accent-blue-glow: rgba(2, 132, 199, 0.15);
+      --accent-green: #059669;
+      --accent-purple: #9333ea;
+      --accent-amber: #d97706;
+
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-dim: #94a3b8;
+
+      --glow-gradient: radial-gradient(circle at 50% 20%, rgba(2, 132, 199, 0.08) 0%, rgba(147, 51, 234, 0.04) 50%, transparent 80%);
+      --header-bg: rgba(248, 250, 252, 0.85);
+      --hero-heading-gradient: linear-gradient(180deg, #0f172a 40%, #334155 100%);
+      --cta-gradient: linear-gradient(180deg, #ffffff 0%, rgba(241, 245, 249, 0.6) 100%);
+      --terminal-code-bg: #0f172a;
+      --terminal-code-text: #cbd5e1;
+    }
+
+    html[data-theme="dark"] {
+      --bg-darker: #090d13;
+      --bg-dark: #0d1117;
+      --bg-card: #161b22;
+      --bg-card-hover: #1c2129;
+      --border-color: #30363d;
+      --border-hover: #484f58;
+
+      --accent-blue: #38bdf8;
+      --accent-blue-glow: rgba(56, 189, 248, 0.15);
+      --accent-green: #10b981;
+      --accent-purple: #a855f7;
+      --accent-amber: #f59e0b;
+
+      --text-main: #f0f6fc;
+      --text-muted: #8b949e;
+      --text-dim: #6e7681;
+
+      --glow-gradient: radial-gradient(circle at 50% 20%, rgba(56, 189, 248, 0.12) 0%, rgba(168, 85, 247, 0.05) 50%, transparent 80%);
+      --header-bg: rgba(13, 17, 23, 0.85);
+      --hero-heading-gradient: linear-gradient(180deg, #ffffff 40%, #94a3b8 100%);
+      --cta-gradient: linear-gradient(180deg, var(--bg-card) 0%, rgba(22, 27, 34, 0.4) 100%);
+      --terminal-code-bg: #000000;
+      --terminal-code-text: #94a3b8;
+    }
+
+    /* Inter Font */
     @font-face {
       font-family: 'Inter';
       font-style: normal;
-      font-weight: 100 900; /* Cobertura completa si usas la variable */
+      font-weight: 100 900;
       font-display: swap;
       src: url('fonts/inter-latin-standard-normal.woff2') format('woff2');
     }
 
-    /* Fira Code Font (Monospace - 400 Regular) */
+    /* Fira Code Font */
     @font-face {
       font-family: 'Fira Code';
       font-style: normal;
-      font-weight: 100 900; /* Cobertura completa si usas la variable */
+      font-weight: 100 900;
       font-display: swap;
       src: url('fonts/fira-code-latin-wght-normal.woff2') format('woff2');
     }
@@ -104,6 +208,7 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
     }
 
     body {
@@ -122,7 +227,7 @@
       transform: translateX(-50%);
       width: 1000px;
       height: 500px;
-      background: radial-gradient(circle at 50% 20%, rgba(56, 189, 248, 0.12) 0%, rgba(168, 85, 247, 0.05) 50%, transparent 80%);
+      background: var(--glow-gradient);
       pointer-events: none;
       z-index: 0;
     }
@@ -137,12 +242,12 @@
 
     header {
       padding: 24px 0;
-      border-bottom: 1px solid rgba(48, 54, 61, 0.5);
+      border-bottom: 1px solid var(--border-color);
       backdrop-filter: blur(8px);
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(13, 17, 23, 0.85);
+      background: var(--header-bg);
     }
 
     .header-content {
@@ -163,7 +268,7 @@
       width: 36px;
       height: 36px;
       border-radius: 8px;
-      background: linear-gradient(135deg, var(--accent-blue), #2563eb);
+      background: linear-gradient(135deg, var(--subtitle-color), var(--badge-color));
       display: flex;
       align-items: center;
       justify-content: center;
@@ -179,6 +284,13 @@
       letter-spacing: -0.5px;
     }
 
+    .logo-subtitle {
+      font-weight: 400;
+      font-size: 1.15rem;
+      letter-spacing: -0.5px;
+      color: var(--subtitle-color);
+    }
+
     .nav-actions {
       display: flex;
       align-items: center;
@@ -190,7 +302,6 @@
       text-decoration: none;
       font-size: 0.95rem;
       font-weight: 500;
-      transition: color 0.2s;
     }
 
     .nav-link:hover {
@@ -207,7 +318,6 @@
       font-weight: 600;
       text-decoration: none;
       cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .btn-github {
@@ -223,15 +333,35 @@
 
     .btn-primary {
       background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
-      color: #041019;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.4), 0 0 20px rgba(56, 189, 248, 0.25);
+      /*color: #041019;*/
+      color: var(--btn-primary);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.2), 0 0 20px rgba(56, 189, 248, 0.25);
       border: 1px solid #7dd3fc;
     }
 
     .btn-primary:hover {
-      filter: brightness(1.1);
+      filter: brightness(1.05);
       box-shadow: 0 0 25px rgba(56, 189, 248, 0.4);
       transform: translateY(-1px);
+    }
+
+    /* Botón Selector de Tema */
+    .btn-theme-toggle {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .btn-theme-toggle:hover {
+      color: var(--text-main);
+      border-color: var(--border-hover);
     }
 
     .hero {
@@ -269,8 +399,9 @@
       max-width: 850px;
       margin-left: auto;
       margin-right: auto;
-      background: linear-gradient(180deg, #ffffff 40%, #94a3b8 100%);
+      background: var(--hero-heading-gradient);
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
@@ -296,7 +427,7 @@
       background-color: var(--bg-darker);
       border: 1px solid var(--border-color);
       border-radius: 10px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
       text-align: left;
       overflow: hidden;
     }
@@ -334,7 +465,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      color: #e2e8f0;
+      color: var(--text-main);
     }
 
     .cmd-text {
@@ -357,7 +488,6 @@
       cursor: pointer;
       font-size: 0.8rem;
       font-family: var(--font-sans);
-      transition: all 0.2s;
     }
 
     .btn-copy:hover {
@@ -429,7 +559,6 @@
       border: 1px solid var(--border-color);
       border-radius: 12px;
       padding: 30px;
-      transition: transform 0.2s, border-color 0.2s;
       position: relative;
     }
 
@@ -483,13 +612,13 @@
     }
 
     .arch-code {
-      background: #000;
+      background: var(--terminal-code-bg);
       border: 1px solid var(--border-color);
       border-radius: 8px;
       padding: 20px;
       font-family: var(--font-mono);
       font-size: 0.85rem;
-      color: #94a3b8;
+      color: var(--terminal-code-text);
       line-height: 1.7;
     }
 
@@ -497,7 +626,7 @@
     .arch-code .code-green { color: var(--accent-green); }
 
     .cta-banner {
-      background: linear-gradient(180deg, var(--bg-card) 0%, rgba(22, 27, 34, 0.4) 100%);
+      background: var(--cta-gradient);
       border: 1px solid var(--border-color);
       border-radius: 16px;
       padding: 60px 30px;
@@ -536,7 +665,6 @@
     .footer-links a {
       color: var(--text-muted);
       text-decoration: none;
-      transition: color 0.2s;
     }
 
     .footer-links a:hover {
@@ -552,7 +680,6 @@
   </style>
 </head>
 <body>
-
   <div class="glow-bg" aria-hidden="true"></div>
 
   <!-- HEADER -->
@@ -560,7 +687,7 @@
     <div class="container header-content">
       <a href="#" class="logo-container" aria-label="Orbit Enterprise Homepage">
         <div class="logo-badge" aria-hidden="true">O</div>
-        <span class="logo-title">Orbit Enterprise</span>
+        <span class="logo-title">Orbit <span class="logo-subtitle">Enterprise</span></span>
       </a>
       <nav class="nav-actions" aria-label="Main Navigation">
         <a href="#features" class="nav-link">Features</a>
@@ -571,12 +698,28 @@
           </svg>
           Repository
         </a>
+        <!-- Selector Manual Tema -->
+        <button id="theme-toggle" class="btn-theme-toggle" aria-label="Cambiar tema" title="Cambiar tema">
+          <svg id="theme-icon-sun" style="display: none;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg id="theme-icon-moon" style="display: none;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
       </nav>
     </div>
   </header>
 
   <main class="container">
-    
     <!-- HERO -->
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-tagline">
@@ -649,7 +792,6 @@
             Automatic classification of security patches and errata by severity level (CRITICAL, IMPORTANT, MODERATE, LOW) without modifying system packages during audit.
           </p>
         </article>
-
         <article class="feature-card">
           <div class="feature-icon icon-green" aria-hidden="true">⚡</div>
           <h3>Outbound-Only Communication</h3>
@@ -657,7 +799,6 @@
             Polling-based security architecture over HTTPS/REST. Managed nodes require zero open firewall ingress ports and no shared persistent SSH keys.
           </p>
         </article>
-
         <article class="feature-card">
           <div class="feature-icon icon-amber" aria-hidden="true">🔄</div>
           <h3>Pending Reboot Tracking</h3>
@@ -665,7 +806,6 @@
             Active detection of running processes and resident libraries requiring system or service restarts (native support for <code>needs-restarting</code> and <code>reboot-required</code>).
           </p>
         </article>
-
         <article class="feature-card">
           <div class="feature-icon icon-purple" aria-hidden="true">🔒</div>
           <h3>Systemd Sandboxing & FIPS</h3>
@@ -673,7 +813,6 @@
             Hardened systemd units enforcing <code>ProtectSystem=strict</code>, least-privilege permissions, and entropy generation compatible with FIPS requirements.
           </p>
         </article>
-
         <article class="feature-card">
           <div class="feature-icon icon-blue" aria-hidden="true">📦</div>
           <h3>Batch Operations</h3>
@@ -681,7 +820,6 @@
             Execute concurrent scheduled updates across tags, handle automated execution queues, or perform clean node decommissions with a single action.
           </p>
         </article>
-
         <article class="feature-card">
           <div class="feature-icon icon-green" aria-hidden="true">🌐</div>
           <h3>Reverse Proxy & Context Ready</h3>
@@ -741,7 +879,6 @@
         </a>
       </div>
     </section>
-
   </main>
 
   <!-- FOOTER -->
@@ -759,6 +896,48 @@
   </footer>
 
   <script>
+    // Lógica para alternar y sincronizar temas
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const sunIcon = document.getElementById('theme-icon-sun');
+    const moonIcon = document.getElementById('theme-icon-moon');
+    const metaThemeColor = document.getElementById('theme-color-meta');
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: light)');
+
+    function resolveTheme() {
+      const explicit = document.documentElement.getAttribute('data-theme');
+      if (explicit) return explicit;
+      return mediaQuery.matches ? 'light' : 'dark';
+    }
+
+    function syncThemeUI() {
+      const activeTheme = resolveTheme();
+      if (activeTheme === 'light') {
+        sunIcon.style.display = 'none';
+        moonIcon.style.display = 'block';
+        if (metaThemeColor) metaThemeColor.setAttribute('content', '#f8fafc');
+      } else {
+        sunIcon.style.display = 'block';
+        moonIcon.style.display = 'none';
+        if (metaThemeColor) metaThemeColor.setAttribute('content', '#0d1117');
+      }
+    }
+
+    themeToggleBtn.addEventListener('click', () => {
+      const current = resolveTheme();
+      const nextTheme = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', nextTheme);
+      localStorage.setItem('orbit-theme', nextTheme);
+      syncThemeUI();
+    });
+
+    mediaQuery.addEventListener('change', () => {
+      if (!localStorage.getItem('orbit-theme')) {
+        syncThemeUI();
+      }
+    });
+
+    syncThemeUI();
+
     function copyInstallCmd(btn) {
       const cmd = "curl -sSL https://raw.githubusercontent.com/ramonromancastro/orbit-server/main/get-orbit.sh | sudo bash";
       navigator.clipboard.writeText(cmd).then(() => {
